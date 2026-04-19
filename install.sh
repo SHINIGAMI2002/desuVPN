@@ -1,33 +1,35 @@
 #!/bin/bash
 # ===============================================
-# desuVPN - Futuristic Dark Mode VPN Installer
+# desuVPN - Futuristic Overlay for givps
 # โดเมน: domudesu.duckdns.org
-# สีดำสนิท + ม่วงนีออน | เมนูภาษาไทย
+# เมนูสวยทับบน givps (ไม่ติดตั้ง 3x-ui ซ้ำ)
 # ===============================================
 
 clear
 echo -e "\033[38;5;165m"
-echo "   ██████╗ ███████╗███████╗██╗   ██╗██╗   ██╗██████╗ ███╗   ██╗"
-echo "   ██╔══██╗██╔════╝██╔════╝██║   ██║██║   ██║██╔══██╗████╗  ██║"
-echo "   ██║  ██║█████╗  ███████╗██║   ██║██║   ██║██║  ██║██╔██╗ ██║"
-echo "   ██║  ██║██╔══╝  ╚════██║╚██╗ ██╔╝██║   ██║██║  ██║██║╚██╗██║"
-echo "   ██████╔╝███████╗███████║ ╚████╔╝ ╚██████╔╝██████╔╝██║ ╚████║"
-echo "   ╚═════╝ ╚══════╝╚══════╝  ╚═══╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝"
-echo "                  desuVPN - Futuristic Dark Mode"
-echo -e "\033[0m"
-echo -e "\033[38;5;165m                  กำลังติดตั้งระบบใหม่...\033[0m\n"
+echo "   ███████╗███████╗███████╗██╗   ██╗██╗   ██╗██████╗ ███╗   ██╗"
+echo "   ██╔════╝██╔════╝██╔════╝██║   ██║██║   ██║██╔══██╗████╗  ██║"
+echo "   ███████╗█████╗  ███████╗██║   ██║██║   ██║██║  ██║██╔██╗ ██║"
+echo "   ╚════██║██╔══╝  ╚════██║╚██╗ ██╔╝██║   ██║██║  ██║██║╚██╗██║"
+echo "   ███████║███████╗███████║ ╚████╔╝ ╚██████╔╝██████╔╝██║ ╚████║"
+echo "   ╚══════╝╚══════╝╚══════╝  ╚═══╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝"
+echo -e "\033[38;5;201m                  desuVPN  •  FUTURISTIC OVERLAY\033[0m"
+echo -e "\033[38;5;93m               สำหรับ givps + domudesu.duckdns.org\033[0m"
+echo ""
+echo -e "\033[38;5;165m                  กำลังติดตั้งเมนูสวย...\033[0m\n"
 
 if [[ $EUID -ne 0 ]]; then
-   echo -e "\033[31mกรุณารันด้วย root (sudo bash install.sh)\033[0m"
+   echo -e "\033[31mกรุณารันด้วย root\033[0m"
    exit 1
 fi
 
-apt-get update -y && apt-get install -y curl wget git unzip jq uuid-runtime socat
-
 DOMAIN="domudesu.duckdns.org"
 
-echo -e "\033[38;5;165mกำลังติดตั้ง 3x-ui...\033[0m"
-bash <(curl -Ls https://raw.githubusercontent.com/MHSanaei/3x-ui/master/install.sh) > /dev/null 2>&1
+# ตรวจสอบ givps + 3x-ui
+echo -e "\033[38;5;165mตรวจสอบ givps และ 3x-ui...\033[0m"
+if ! command -v x-ui &> /dev/null && ! command -v xui &> /dev/null; then
+    echo -e "\033[33m⚠️  ไม่พบ 3x-ui (givps) กรุณาตรวจสอบว่าติดตั้ง givps สำเร็จหรือไม่\033[0m"
+fi
 
 cat << 'EOF' > /usr/local/bin/desuvpn
 #!/bin/bash
@@ -36,63 +38,55 @@ DOMAIN="domudesu.duckdns.org"
 
 while true; do
     echo -e "\033[0;40m\033[38;5;165m"
-    echo "   ██████╗ ███████╗███████╗██╗   ██╗██╗   ██╗██████╗ ███╗   ██╗"
-    echo "   ██╔══██╗██╔════╝██╔════╝██║   ██║██║   ██║██╔══██╗████╗  ██║"
-    echo "   ██║  ██║█████╗  ███████╗██║   ██║██║   ██║██║  ██║██╔██╗ ██║"
-    echo "   ██║  ██║██╔══╝  ╚════██║╚██╗ ██╔╝██║   ██║██║  ██║██║╚██╗██║"
-    echo "   ██████╔╝███████╗███████║ ╚████╔╝ ╚██████╔╝██████╔╝██║ ╚████║"
-    echo "   ╚═════╝ ╚══════╝╚══════╝  ╚═══╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝"
-    echo -e "\033[38;5;165m                  desuVPN - Futuristic Dark Mode"
-    echo -e "\033[38;5;51m               โดเมนหลัก: $DOMAIN\033[0m"
+    echo "   ███████╗███████╗███████╗██╗   ██╗██╗   ██╗██████╗ ███╗   ██╗"
+    echo "   ██╔════╝██╔════╝██╔════╝██║   ██║██║   ██║██╔══██╗████╗  ██║"
+    echo "   ███████╗█████╗  ███████╗██║   ██║██║   ██║██║  ██║██╔██╗ ██║"
+    echo "   ╚════██║██╔══╝  ╚════██║╚██╗ ██╔╝██║   ██║██║  ██║██║╚██╗██║"
+    echo "   ███████║███████╗███████║ ╚████╔╝ ╚██████╔╝██████╔╝██║ ╚████║"
+    echo "   ╚══════╝╚══════╝╚══════╝  ╚═══╝   ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝"
+    echo -e "\033[38;5;201m                  desuVPN  •  FUTURISTIC OVERLAY\033[0m"
+    echo -e "\033[38;5;93m               givps + $DOMAIN\033[0m"
     echo ""
     echo -e "\033[38;5;165m══════════════════════════════════════════════════════════════\033[0m"
-    echo -e "\033[38;5;165m  1.\033[0m เปิด 3x-ui Panel"
-    echo -e "\033[38;5;165m 21.\033[0m ตั้งค่า DuckDNS + SSL อัตโนมัติ ($DOMAIN)"
-    echo -e "\033[38;5;165m 19.\033[0m สร้าง Inbound Trojan"
-    echo -e "\033[38;5;165m 20.\033[0m สร้าง Inbound VMess"
-    echo -e "\033[38;5;165m  3.\033[0m สร้าง VLESS Reality"
-    echo -e "\033[38;5;165m  7.\033[0m รีสตาร์ท 3x-ui"
-    echo -e "\033[38;5;165m 16.\033[0m อัพเดท desuVPN"
-    echo -e "\033[38;5;165m  0.\033[0m ออก"
+    echo -e "\033[38;5;165m  [1]  เปิด 3x-ui Panel (จาก givps)"
+    echo -e "\033[38;5;165m [21]  ตั้งค่า DuckDNS + SSL ($DOMAIN)"
+    echo -e "\033[38;5;165m [19]  สร้าง Inbound Trojan"
+    echo -e "\033[38;5;165m [20]  สร้าง Inbound VMess"
+    echo -e "\033[38;5;165m  [3]  สร้าง VLESS Reality"
+    echo -e "\033[38;5;165m  [7]  รีสตาร์ท 3x-ui"
+    echo -e "\033[38;5;165m [16]  อัพเดท desuVPN"
+    echo -e "\033[38;5;165m  [0]  ออก"
     echo -e "\033[38;5;165m══════════════════════════════════════════════════════════════\033[0m"
-    echo -e "\033[38;5;165mเลือกหมายเลข : \033[0m"
+    echo -e "\033[38;5;201mเลือกหมายเลข → \033[0m"
     read -r choice
 
     case $choice in
-        1|3) x-ui ;;
-        7) systemctl restart x-ui ;;
+        1|3) 
+            if command -v x-ui &> /dev/null; then x-ui; else echo -e "\033[31mไม่พบคำสั่ง x-ui\033[0m"; fi ;;
+        7) systemctl restart x-ui 2>/dev/null || echo -e "\033[33mรีสตาร์ทไม่สำเร็จ\033[0m" ;;
         21)
-            echo -e "\033[38;5;165m=== ตั้งค่า DuckDNS + SSL สำหรับ $DOMAIN ===\033[0m"
-            echo -e "1. ไปที่ https://www.duckdns.org"
-            echo -e "   ล็อกอิน → อัพเดท IP เป็น IP ของ VPS นี้"
-            read -p "อัพเดท IP แล้วหรือยัง? (y/n): " confirmed
-            if [[ "$confirmed" == "y" ]]; then
-                echo -e "\033[38;5;165mกำลังขอ SSL...\033[0m"
+            echo -e "\033[38;5;165m=== DuckDNS + SSL สำหรับ $DOMAIN ===\033[0m"
+            echo "ไปที่ https://www.duckdns.org → อัพเดท IP VPS"
+            read -p "อัพเดทแล้ว? (y/n): " ok
+            if [[ "$ok" == "y" ]]; then
                 curl https://get.acme.sh | sh -s email=your-email@gmail.com > /dev/null 2>&1
                 ~/.acme.sh/acme.sh --issue -d $DOMAIN --standalone --force
-                echo -e "\033[38;5;51m✅ ขอ SSL สำเร็จแล้ว!\033[0m"
-                echo -e "Certificate และ Key อยู่ใน ~/.acme.sh/$DOMAIN"
-                echo -e "ไปตั้งค่าใน 3x-ui → Panel Settings"
-            else
-                echo -e "\033[33mกรุณาอัพเดท IP ที่ DuckDNS ก่อน แล้วลองใหม่\033[0m"
+                echo -e "\033[38;5;51mSSL สำเร็จ → ไปตั้งใน 3x-ui Panel Settings\033[0m"
             fi
             ;;
         19|20|3)
             echo -e "\033[38;5;165mเปิด 3x-ui เพื่อสร้าง Inbound...\033[0m"
-            x-ui
-            echo -e "\033[38;5;51mหลังสร้างเสร็จ แนะนำใส่ SNI / Host = $DOMAIN\033[0m"
+            x-ui 2>/dev/null || echo -e "\033[31mไม่พบ x-ui\033[0m"
+            echo -e "\033[38;5;51mแนะนำใส่ SNI = $DOMAIN\033[0m"
             ;;
         16)
-            echo -e "\033[38;5;165mกำลังอัพเดท desuVPN เวอร์ชันล่าสุด...\033[0m"
+            echo -e "\033[38;5;165mอัพเดท desuVPN...\033[0m"
             curl -sSL https://raw.githubusercontent.com/SHINIGAMI2002/desuVPN/main/install.sh | bash
             ;;
-        0) 
-            echo -e "\033[38;5;165mขอบคุณที่ใช้ desuVPN ❤️ ออกจากระบบ...\033[0m"
-            exit 0 
-            ;;
+        0) echo -e "\033[38;5;201mขอบคุณที่ใช้ desuVPN ❤️\033[0m"; exit 0 ;;
         *) echo -e "\033[31mเลือกไม่ถูกต้อง!\033[0m" ;;
     esac
-    echo -e "\n\033[38;5;165mกด Enter เพื่อกลับเมนู...\033[0m"
+    echo -e "\nกด Enter เพื่อกลับเมนู..."
     read -r
 done
 EOF
@@ -102,14 +96,7 @@ echo 'alias desuvpn="/usr/local/bin/desuvpn"' >> /root/.bashrc
 
 echo -e "\033[38;5;165m"
 echo "══════════════════════════════════════════════════════════════"
-echo "✅ desuVPN ติดตั้งสำเร็จเรียบร้อย!"
-echo "🔥 พิมพ์คำสั่ง: desuvpn เพื่อเปิดเมนู Futuristic Dark Mode"
-echo "🌐 3x-ui Panel: http://$(curl -s ifconfig.me):54321"
-echo "   Username: admin | Password: admin (เปลี่ยนทันที)"
+echo "✅ desuVPN Overlay สำเร็จ (เสริม givps)"
+echo "🔥 พิมพ์: desuvpn เพื่อเปิดเมนู Futuristic"
 echo "══════════════════════════════════════════════════════════════"
 echo -e "\033[0m"
-EOF
-
-chmod +x /root/install.sh
-
-echo -e "\033[38;5;165mไฟล์ install.sh พร้อมใช้งานแล้วครับ\033[0m"
